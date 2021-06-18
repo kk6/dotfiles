@@ -45,6 +45,7 @@ set fish_custom $HOME/.config/fish
 # load secret config (API keys, etc.)
 . $fish_custom/config.secret.fish
 
+
 # for pipenv
 set -x PIPENV_DEFAULT_PYTHON_VERSION 3
 set -x PIPENV_SHELL_FANCY 1
@@ -57,9 +58,9 @@ set -x PATH $HOME/.poetry/bin $PATH
 set -x GOPATH $HOME/.go
 set -x PATH $GOPATH/bin $PATH
 
-set -g XDG_CONFIG_HOME "$HOME/.config"
-set -g XDG_CACHE_HOME "$HOME/.cache"
-
+set -x XDG_CONFIG_HOME "$HOME/.config"
+set -x XDG_CACHE_HOME "$HOME/.cache"
+set -x XDG_DATA_HOME "$HOME/.local/share"
 # Rust
 set -x PATH $HOME/.cargo/bin $PATH
 
