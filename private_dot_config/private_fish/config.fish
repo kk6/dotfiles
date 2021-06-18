@@ -2,6 +2,11 @@ set -x EDITOR /usr/local/bin/vim
 set -xg LC_ALL ja_JP.UTF-8
 set -xg LANG ja_JP.UTF-8
 
+# XDG Base Directory Specification
+set -x XDG_CONFIG_HOME "$HOME/.config"
+set -x XDG_CACHE_HOME "$HOME/.cache"
+set -x XDG_DATA_HOME "$HOME/.local/share"
+
 # alias
 alias ls "lsd"
 alias l "ls"
@@ -40,11 +45,13 @@ set -x PATH $PYTHONUSERBASE/bin $PATH
 
 
 # Path to your custom folder (default path is $FISH/custom)
-set fish_custom $HOME/.config/fish
+set fish_custom $XDG_CONFIG_HOME/fish
 
 # load secret config (API keys, etc.)
 . $fish_custom/config.secret.fish
 
+# Python
+set -x PYTHONSTARTUP $XDG_CONFIG_HOME/python/startup.py
 
 # for pipenv
 set -x PIPENV_DEFAULT_PYTHON_VERSION 3
@@ -58,9 +65,6 @@ set -x PATH $HOME/.poetry/bin $PATH
 set -x GOPATH $HOME/.go
 set -x PATH $GOPATH/bin $PATH
 
-set -x XDG_CONFIG_HOME "$HOME/.config"
-set -x XDG_CACHE_HOME "$HOME/.cache"
-set -x XDG_DATA_HOME "$HOME/.local/share"
 # Rust
 set -x PATH $HOME/.cargo/bin $PATH
 
