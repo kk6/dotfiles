@@ -61,6 +61,9 @@ set -x PIPENV_VENV_IN_PROJECT 1
 # for poetry
 set -x PATH $HOME/.poetry/bin $PATH
 
+# ptpython
+set -x PTPYTHON_CONFIG_HOME $XDG_CONFIG_HOME/ptpython/config.py
+
 # Golang
 set -x GOPATH $HOME/.go
 set -x PATH $GOPATH/bin $PATH
