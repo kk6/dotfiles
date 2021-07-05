@@ -20,12 +20,15 @@ alias deck "open -na 'Google Chrome' --args '--app=https://tweetdeck.twitter.com
 alias fig "docker-compose"
 
 # pyenv等のconfigがbrew doctorに引っかかってしまう問題の対応
-# https://qiita.com/takuya0301/items/695f42f6904e979f0152
+# https://qiita.com/komo/items/450180282766ffb250ba
 function brew
-  set -x PATH /usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin
-  command brew $argv
-end
+    set -xl PATH $PATH # Protect global PATH by local PATH
+    if type -q pyenv; and contains (pyenv root)/shims $PATH
+        set -e PATH[(contains -i (pyenv root)/shims $PATH)]
+    end
 
+    command brew $argv
+end
 
 #set -g fish_user_paths "/usr/local/opt/icu4c/bin" $fish_user_paths
 #set -g fish_user_paths "/usr/local/opt/icu4c/sbin" $fish_user_paths
