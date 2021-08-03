@@ -381,6 +381,5 @@ local.py
 static/debug_toolbar/
 .mypy_cache/
 apps/static/admin
-*.sql
 .env.dev
 test_data/
