@@ -373,6 +373,9 @@ tags
 
 # End of https://www.gitignore.io/api/vim,git,ruby,node,macos,python,pycharm,mercurial,jetbrains,visualstudiocode
 
+# Nuxt build
+.nuxt
+
 .idea
 
 *.sqlite3
