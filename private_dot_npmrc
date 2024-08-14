@@ -1,4 +1,3 @@
-init.author.name=kk6
-init.author.email=hiro.ashiya@gmail.com
-init.license=MIT
-prefix=~/.npm-global
+init-author-name=kk6
+init-author-email=hiro.ashiya@gmail.com
+init-license=MIT

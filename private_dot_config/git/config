@@ -3,7 +3,7 @@
 [commit]
     template = /Users/kk6/.stCommitMsg
 [core]
-    editor = nvim
+    editor = vim
 [credential]
     helper = osxkeychain
 [difftool "sourcetree"]
