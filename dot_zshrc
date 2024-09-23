@@ -1,6 +1,3 @@
-# Rye (Python)
-source "$HOME/.rye/env"
-
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
