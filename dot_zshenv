@@ -1,1 +1,6 @@
+# cargo
 . "$HOME/.cargo/env"
+
+# uv
+export PATH="/Users/kk6/.local/bin:$PATH"
+

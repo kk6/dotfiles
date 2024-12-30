@@ -1,3 +1,6 @@
+# Activate zsh-autosuggestions
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 # Rust
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -14,3 +17,7 @@ eval "$(starship init zsh)"
 # aliases
 alias vi="nvim"
 alias vim="nvim"
+
+# PostgreSQL
+export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
