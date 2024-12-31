@@ -1,0 +1,7 @@
+theme = catppuccin-frappe
+font-family = "SFMono Square"
+font-style = Regular
+font-size = 13
+font-thicken = false
+macos-non-native-fullscreen = true
+
