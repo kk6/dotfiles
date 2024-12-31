@@ -1,23 +1,28 @@
 # Activate zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Rust
-export PATH="$HOME/.cargo/bin:$PATH"
-
-# zoxide
-eval "$(zoxide init zsh)"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-export VOLTA_HOME="$HOME/.volta"
-export PATH="$VOLTA_HOME/bin:$PATH"
-
-# starship
-eval "$(starship init zsh)"
-
 # aliases
 alias vi="nvim"
 alias vim="nvim"
 
+# fzf
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
+export FZF_DEFAULT_OPTS='--height 40% --reverse --border'
+
 # PostgreSQL
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
+
+# Rust
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# starship
+eval "$(starship init zsh)"
+
+# volta
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+
+# zoxide
+eval "$(zoxide init zsh)"
 
