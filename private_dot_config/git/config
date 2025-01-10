@@ -4,6 +4,7 @@
     template = /Users/kk6/.stCommitMsg
 [core]
     editor = vim
+  pager = delta
 [credential]
     helper = osxkeychain
 [difftool "sourcetree"]
@@ -33,4 +34,11 @@
 [user]
     name = kk6
     email = hiro.ashiya@gmail.com
+[interactive]
+    diffFilter = delta --color-only
+[delta]
+    navigate = true
+    dark = true
+[merge]
+    conflictstyle = zdiff3
 
