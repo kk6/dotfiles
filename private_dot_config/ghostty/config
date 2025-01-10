@@ -4,4 +4,7 @@ font-style = Regular
 font-size = 13
 font-thicken = false
 macos-non-native-fullscreen = true
+quick-terminal-position = top
+quick-terminal-screen = main
+keybind = global:ctrl+option+space=toggle_quick_terminal
 
