@@ -55,3 +55,9 @@ export PATH="$VOLTA_HOME/bin:$PATH"
 # zoxide
 eval "$(zoxide init zsh)"
 
+# Added by Windsurf
+export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
+
+# open api key
+export open_api_key="sk-proj-clngjdou4gmroitxexpe8ghs7dsutym_xgw1rn1njy_c64lwheeijdv4f47ztrhnmqmvqp_zzit3blbkfj4iokphbbha9900fjp4mlxa-kwxtvzznfq02v8jmzapiueap6nsw7qrol3eg1fbufyfolnpvzsa"
+
