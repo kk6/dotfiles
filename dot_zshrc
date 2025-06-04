@@ -1,11 +1,18 @@
 # Activate zsh-autosuggestions
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
+# Activate Completion
+autoload -Uz compinit
+compinit
+
 # XDG Base Directory Specification
 export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.local/share"
 export XDG_STATE_HOME="$HOME/.local/state"
+
+# Plugins
+plugins=(git)
 
 # aliases
 alias vi="nvim"
@@ -60,4 +67,8 @@ export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
 
 # open api key
 export OPENAI_API_KEY="sk-proj-clngjdou4gmroitxexpe8ghs7dsutym_xgw1rn1njy_c64lwheeijdv4f47ztrhnmqmvqp_zzit3blbkfj4iokphbbha9900fjp4mlxa-kwxtvzznfq02v8jmzapiueap6nsw7qrol3eg1fbufyfolnpvzsa"
+
+# GitHub Copilot CLI
+echo 'alias gs="gh copilot suggest"'
+echo 'alias ge="gh copilot explain"'
 
