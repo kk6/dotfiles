@@ -64,22 +64,25 @@ $ git push
 $ exit
 ```
 
-### プライベートファイルの管理
+### .zshrc.local の使用
 
-暗号化が必要なプライベートファイル（APIキーなど）は `private_` プレフィックスを使用して管理できます。
+`.zshrc.local` ファイルを使用して、個別の環境設定を上書きできます。このファイルは `.zshrc` の後に読み込まれます。
+
+現状、`.zshrc.local` はリポジトリに含まれていません。必要に応じて自分で作成してください。
 
 ```bash
-# プライベートファイルの追加
-$ chezmoi add --private ~/.npmrc
+# .zshrc.local の作成
+$ touch ~/.zshrc.local
+# .zshrc.local に個別の設定を追加
+$ echo "export PATH=\$PATH:/my/custom/path" >> ~/.zshrc.local
 ```
+
+## 注意事項
+
+- このリポジトリは個人用の設定を管理するためのものであり、他のユーザーが使用することを意図していません。
+- 変更を加える際は、事前にバックアップを取ることをおすすめします。
 
 ## 参考リンク
 
 - [chezmoi 公式ドキュメント](https://www.chezmoi.io/)
 - [chezmoi GitHub リポジトリ](https://github.com/twpayne/chezmoi)
-
-## ToDo
-
-- [ ] AGE暗号化を使用したプライベートファイルの管理設定
-- [ ] テンプレート機能を使用した環境固有の設定管理
-- [ ] 不要になったドットファイルの整理と削除

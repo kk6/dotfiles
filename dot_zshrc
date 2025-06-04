@@ -69,3 +69,5 @@ export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
 echo 'alias gs="gh copilot suggest"'
 echo 'alias ge="gh copilot explain"'
 
+# Import .zshrc.local
+[ -f ~/.zshrc.local ] && source ~/.zshrc.local
