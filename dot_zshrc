@@ -26,6 +26,9 @@ alias lt="ls --tree"
 alias tree="lt"
 alias find="fd"
 alias cat="bat"
+# GitHub Copilot CLI
+alias gs="gh copilot suggest"
+alias ge="gh copilot explain"
 
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -64,10 +67,6 @@ eval "$(zoxide init zsh)"
 
 # Added by Windsurf
 export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
-
-# GitHub Copilot CLI
-echo 'alias gs="gh copilot suggest"'
-echo 'alias ge="gh copilot explain"'
 
 # Import .zshrc.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
