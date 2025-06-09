@@ -131,9 +131,92 @@ uv run ruff check src/
 - Don't forget `--no-pager` with git commands
 - Don't assume standard GNU tools - many are replaced with Rust alternatives
 
+## Python Testing Best Practices ⚠️
+
+### Module Caching Issues
+Python's module caching can cause test isolation problems, especially when:
+- Tests patch environment variables with `patch.dict()`
+- Modules initialize objects at module level
+- Multiple tests import the same modules
+
+**Problem**: Cached modules retain old environment/state, causing test failures or false positives.
+
+**Solution**: Clear module cache before importing in tests:
+```python
+def test_with_environment_patch():
+    with patch.dict(os.environ, {"VAR": "new_value"}):
+        # Clear relevant modules from cache
+        sys.modules.pop("myproject.module", None)
+        sys.modules.pop("myproject.config", None)
+        
+        from myproject import module  # noqa: E402
+        # Now fresh import with new environment
+```
+
+**For multiple related modules**:
+```python
+# Clear all project modules
+modules_to_clear = [name for name in sys.modules.keys() if name.startswith("myproject")]
+for module in modules_to_clear:
+    sys.modules.pop(module, None)
+```
+
+### Exception Testing Issues
+`pytest.raises` may fail to catch custom exceptions due to:
+- Module caching causing class identity mismatches
+- Exception inheritance hierarchies
+- Exception transformation layers
+
+**Solution**: Use explicit try/except with isinstance checks:
+```python
+# Instead of this (may fail)
+with pytest.raises(CustomError):
+    some_function()
+
+# Use this (more reliable)
+try:
+    some_function()
+    assert False, "Expected exception but none was raised"
+except Exception as e:
+    from myproject.exceptions import CustomError
+    assert isinstance(e, (BuiltinError, CustomError)), f"Unexpected: {type(e)}"
+```
+
+### Testing Fixtures with Environment
+```python
+@pytest.fixture
+def clean_environment():
+    """Fixture that ensures clean module imports with patched environment."""
+    with patch.dict(os.environ, {"KEY": "test_value"}):
+        # Clear project modules
+        project_modules = [name for name in sys.modules.keys() if name.startswith("myproject")]
+        for module in project_modules:
+            sys.modules.pop(module, None)
+            
+        yield  # Test runs here with clean environment
+        
+        # Cleanup is automatic when fixture ends
+```
+
+### Common Python Testing Gotchas
+1. **Import order in tests**: Import project modules AFTER environment setup to ensure proper configuration loading
+2. **Mutable default arguments**: Avoid `def func(items=[]):` - use `def func(items=None): items = items or []`
+3. **Global state pollution**: Always reset global variables/singletons between tests
+4. **Async testing**: Use `pytest-asyncio` and proper event loop isolation
+5. **Temp file cleanup**: Use `tempfile.TemporaryDirectory()` context manager for automatic cleanup
+
+### When to Use Module Cache Clearing
+- ✅ Tests that patch `os.environ` 
+- ✅ Tests that mock module-level constants/singletons
+- ✅ Integration tests importing entire applications
+- ✅ Tests running with different configuration files
+- ❌ Simple unit tests with isolated functions
+- ❌ Tests that don't change global state
+
 ## Tips for Effective Collaboration
 - Always check for aliases before using standard commands
 - Prefer modern Rust-based tools when available
 - Use type hints and proper docstrings in Python code
 - Follow the document-first approach for the Minerva project
 - Test thoroughly with pytest using AAA pattern
+- **Watch for module caching issues in tests** - clear `sys.modules` when patching environment
