@@ -14,7 +14,9 @@ export XDG_STATE_HOME="$HOME/.local/state"
 # Plugins
 plugins=(git)
 
-# aliases
+# Aliases
+
+## Unix commands aliases
 alias vi="nvim"
 alias vim="nvim"
 alias ls="lsd"
@@ -26,7 +28,16 @@ alias lt="ls --tree"
 alias tree="lt"
 alias find="fd"
 alias cat="bat"
-# GitHub Copilot CLI
+
+## git commands aliases
+alias gsw="git switch"
+alias gst="git status"
+alias ga="git add"
+alias gl="git pull"
+alias gp="git push"
+alias gd="git diff"
+
+## GitHub Copilot CLI aliases
 alias gs="gh copilot suggest"
 alias ge="gh copilot explain"
 
