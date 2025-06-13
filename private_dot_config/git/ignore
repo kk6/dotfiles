@@ -387,3 +387,4 @@ apps/static/admin
 .env.dev
 test_data/
 
+**/.claude/settings.local.json
