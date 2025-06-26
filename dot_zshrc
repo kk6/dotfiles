@@ -41,6 +41,9 @@ alias gd="git diff"
 alias gs="gh copilot suggest"
 alias ge="gh copilot explain"
 
+## claude
+alias claude="/Users/kk6/.config/claude/local/claude"
+
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
