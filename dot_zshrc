@@ -41,9 +41,6 @@ alias gd="git diff"
 alias gs="gh copilot suggest"
 alias ge="gh copilot explain"
 
-## claude
-alias claude="/Users/kk6/.config/claude/local/claude"
-
 # fzf
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_COMMAND='rg --files --hidden --glob "!.git"'
@@ -84,3 +81,8 @@ export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
 
 # Import .zshrc.local
 [ -f ~/.zshrc.local ] && source ~/.zshrc.local
+
+# Claude Code
+# *NOT* managed using volta
+alias claude="/Users/kk6/.claude/local/claude"
+export PATH="$HOME/.claude/local:$PATH"
