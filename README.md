@@ -6,7 +6,7 @@
 
 - **シェル設定**: `.zshrc`, `.zshenv`, `.zprofile`
 - **エディタ設定**: `.vimrc`, `.editorconfig`, Neovim設定
-- **開発ツール**: Git設定, Starship設定, Flake8設定
+- **開発ツール**: Git設定, Starship設定, Flake8設定, mise設定
 - **ターミナル**: `.tmux.conf`, Ghostty設定
 - **Claude Code設定**: `.claude/CLAUDE.md`, カスタムコマンド
 - **その他**: `.fzf.bash`, `.fzf.zsh`, `.stylelintrc`, npm設定など
@@ -82,6 +82,31 @@ $ echo "export PATH=\$PATH:/my/custom/path" >> ~/.zshrc.local
 
 - このリポジトリは個人用の設定を管理するためのものであり、他のユーザーが使用することを意図していません。
 - 変更を加える際は、事前にバックアップを取ることをおすすめします。
+
+## mise 設定
+
+[mise](https://mise.jdx.dev/) は、複数のプログラミング言語のバージョン管理を統一的に行うためのツールです。
+
+### 設定ファイル
+
+- **config.toml**: mise の基本設定
+  - Python バージョンファイル（`.python-version`）を使用したツール自動有効化
+  - 実験的機能の有効化
+
+### 使用方法
+
+```bash
+# Python バージョンを自動的に認識・使用
+$ mise use python@3.11
+
+# 現在のバージョンを確認
+$ mise current
+
+# インストール済みのバージョンを確認
+$ mise list
+```
+
+詳細は[mise の公式ドキュメント](https://mise.jdx.dev/)を参照してください。
 
 ## Claude Code 設定
 
