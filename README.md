@@ -8,6 +8,7 @@
 - **エディタ設定**: `.vimrc`, `.editorconfig`, Neovim設定
 - **開発ツール**: Git設定, Starship設定, Flake8設定
 - **ターミナル**: `.tmux.conf`, Ghostty設定
+- **Claude Code設定**: `.claude/CLAUDE.md`, カスタムコマンド
 - **その他**: `.fzf.bash`, `.fzf.zsh`, `.stylelintrc`, npm設定など
 
 ## セットアップ
@@ -81,6 +82,18 @@ $ echo "export PATH=\$PATH:/my/custom/path" >> ~/.zshrc.local
 
 - このリポジトリは個人用の設定を管理するためのものであり、他のユーザーが使用することを意図していません。
 - 変更を加える際は、事前にバックアップを取ることをおすすめします。
+
+## Claude Code 設定
+
+このリポジトリには Claude Code の設定とカスタムコマンドが含まれています：
+
+- **CLAUDE.md**: Claude Code の開発設定（Python、Git、TDD など）
+- **カスタムコマンド**:
+  - CLAUDE.md 圧縮ツール（コンテキスト削減）
+  - セキュリティレビューコマンド
+  - Conventional Commits 準拠の Git コミットコマンド
+
+詳細は `dot_claude/README.md` を参照してください。
 
 ## 参考リンク
 
