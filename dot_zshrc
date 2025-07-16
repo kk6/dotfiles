@@ -86,3 +86,11 @@ export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
 # *NOT* managed using volta
 alias claude="/Users/kk6/.claude/local/claude"
 export PATH="$HOME/.claude/local:$PATH"
+
+# zsh-completions
+fpath+=~/.zfunc; autoload -Uz compinit; compinit
+
+zstyle ':completion:*' menu select
+
+# Mise
+eval "$(~/.local/bin/mise activate zsh)"
