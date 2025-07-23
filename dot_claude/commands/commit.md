@@ -1,6 +1,5 @@
 ---
 description: "Create a git commit following Conventional Commits v1.0.0 specification with proper pre-commit hook handling"
-allowed-tools: ["Bash"]
 ---
 
 Create a git commit for the current changes. Follow these guidelines:
@@ -9,9 +8,11 @@ Create a git commit for the current changes. Follow these guidelines:
 
 First, run these commands in parallel to understand the current state:
 
-!git status
-!git diff
-!git log --oneline -5
+```bash
+git status
+git diff
+git log --oneline -5
+```
 
 ## Commit Process
 
