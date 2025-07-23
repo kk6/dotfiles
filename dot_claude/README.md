@@ -75,7 +75,28 @@ CLAUDE.md圧縮開始: /Users/kk6/project/CLAUDE.md
 
 コードのセキュリティ脆弱性をレビューするためのコマンドです。
 
-### 3. Git コミット (`commit.md`)
+### 3. Gemini Web検索 (`gemini-search.md`)
+
+Google Gemini CLIを使用してWeb検索を行うためのコマンドです。
+
+#### 機能
+- **優先使用**: Web検索が必要な場合、組み込みの`WebSearch`ツールではなく、このコマンドを使用
+- **Task Tool統合**: Task Toolを通じてgeminiコマンドを実行
+- **シンプルな構文**: `gemini --prompt`形式でWeb検索を実行
+
+#### 使用方法
+
+Claude Codeでは、Web検索が必要な場合に自動的にこのコマンドが使用されます。
+
+```bash
+gemini --prompt "WebSearch: <検索クエリ>"
+```
+
+#### 注意事項
+- **必須使用**: Web検索時は必ずこのコマンドを使用すること
+- **Task Tool経由**: 直接実行ではなく、Task Toolを通じて実行すること
+
+### 4. Git コミット (`commit.md`)
 
 Conventional Commits v1.0.0仕様に従ったGitコミットを作成するためのコマンドです。
 
