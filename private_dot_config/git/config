@@ -1,15 +1,16 @@
 [alias]
     plog = log --pretty='format:%C(yellow)%h %C(green)%cd %C(reset)%s %C(red)%d %C(cyan)[%an]' --date=iso
+    push-f = push --force-with-lease
 [commit]
     template = /Users/kk6/.stCommitMsg
 [core]
     editor = vim
-  pager = delta
+    pager = delta
 [credential]
     helper = osxkeychain
 [difftool "sourcetree"]
     cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    path = 
+    path =
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
@@ -41,4 +42,3 @@
     dark = true
 [merge]
     conflictstyle = zdiff3
-
