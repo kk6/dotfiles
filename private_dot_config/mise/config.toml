@@ -3,4 +3,5 @@ idiomatic_version_file_enable_tools = ["python"]
 experimental = true
 
 [tools]
+bun = "latest"
 node = "20.14.0"
