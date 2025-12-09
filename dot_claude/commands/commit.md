@@ -41,7 +41,7 @@ git log --oneline -5
 - `build:` - Build system changes
 
 ### Breaking Changes:
-- Add `!` after type: `feat(api)!: change endpoint structure`
+- Add exclamation mark after type: `feat(api)!: change endpoint structure`
 - Or include footer: `BREAKING CHANGE: describe the breaking change`
 
 ### Required Footer:
