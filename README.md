@@ -78,119 +78,20 @@ $ touch ~/.zshrc.local
 $ echo "export PATH=\$PATH:/my/custom/path" >> ~/.zshrc.local
 ```
 
+## ドキュメント
+
+各ツールの詳細な設定については以下を参照してください：
+
+| ドキュメント | 内容 |
+|-------------|------|
+| [docs/neovim.md](docs/neovim.md) | Neovim / Vim 設定 |
+| [docs/mise.md](docs/mise.md) | mise によるバージョン管理 |
+| [dot_claude/README.md](dot_claude/README.md) | Claude Code カスタムコマンド |
+
 ## 注意事項
 
 - このリポジトリは個人用の設定を管理するためのものであり、他のユーザーが使用することを意図していません。
 - 変更を加える際は、事前にバックアップを取ることをおすすめします。
-
-## mise 設定
-
-[mise](https://mise.jdx.dev/) は、複数のプログラミング言語のバージョン管理を統一的に行うためのツールです。
-
-### 設定ファイル
-
-- **config.toml**: mise の基本設定
-  - Python バージョンファイル（`.python-version`）を使用したツール自動有効化
-  - 実験的機能の有効化
-
-### 使用方法
-
-```bash
-# Python バージョンを自動的に認識・使用
-$ mise use python@3.11
-
-# 現在のバージョンを確認
-$ mise current
-
-# インストール済みのバージョンを確認
-$ mise list
-```
-
-詳細は[mise の公式ドキュメント](https://mise.jdx.dev/)を参照してください。
-
-## Claude Code 設定
-
-このリポジトリには Claude Code の設定とカスタムコマンドが含まれています：
-
-- **CLAUDE.md**: Claude Code の開発設定（Python、Git、TDD など）
-- **カスタムコマンド**:
-  - CLAUDE.md 圧縮ツール（コンテキスト削減）
-  - セキュリティレビューコマンド
-  - Conventional Commits 準拠の Git コミットコマンド
-
-詳細は `dot_claude/README.md` を参照してください。
-
-## Neovim / Vim
-
-`vim` は `nvim` のエイリアスとして設定されています。
-
-### 設定ファイルの構成
-
-| ファイル | 役割 |
-|---------|------|
-| `~/.vimrc` | 空（LazyVimに委譲） |
-| `~/.config/nvim/` | メインの設定ディレクトリ |
-
-Neovimの設定は [LazyVim](https://www.lazyvim.org/) をベースにしています。
-
-### ディレクトリ構成
-
-~/.config/nvim/
-├── init.lua                    # エントリポイント
-├── lua/
-│   ├── config/
-│   │   ├── autocmds.lua        # 自動コマンド
-│   │   ├── keymaps.lua         # キーマップ
-│   │   ├── lazy.lua            # プラグインマネージャ設定
-│   │   └── options.lua         # エディタオプション
-│   └── plugins/
-│       └── colorscheme.lua     # カラースキーム設定
-└── lazy-lock.json              # プラグインのロックファイル
-
-### カスタマイズ方法
-
-#### カラースキームを変更する
-
-`lua/plugins/colorscheme.lua` を編集：
-
-```lua
-return {
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
-    priority = 1000,
-    opts = {
-      flavour = "frappe",  -- latte, frappe, macchiato, mocha
-    },
-  },
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "catppuccin",
-    },
-  },
-}
-
-プラグインを追加する
-
-lua/plugins/ 以下に新しいluaファイルを作成：
-
--- lua/plugins/example.lua
-return {
-  { "github-user/plugin-name" },
-}
-
-エディタオプションを変更する
-
-lua/config/options.lua を編集：
-
-vim.opt.cursorcolumn = true
-vim.opt.tabstop = 2
-
-参考リンク
-
-- https://www.lazyvim.org/
-- https://github.com/folke/lazy.nvim
 
 ## 参考リンク
 
