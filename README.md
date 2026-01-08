@@ -84,7 +84,12 @@ $ echo "export PATH=\$PATH:/my/custom/path" >> ~/.zshrc.local
 
 | ドキュメント | 内容 |
 |-------------|------|
+| [docs/zsh.md](docs/zsh.md) | Zsh シェル設定 |
+| [docs/git.md](docs/git.md) | Git 設定 |
 | [docs/neovim.md](docs/neovim.md) | Neovim / Vim 設定 |
+| [docs/terminal.md](docs/terminal.md) | tmux / Ghostty ターミナル設定 |
+| [docs/starship.md](docs/starship.md) | Starship プロンプト設定 |
+| [docs/fzf.md](docs/fzf.md) | fzf ファジーファインダー設定 |
 | [docs/mise.md](docs/mise.md) | mise によるバージョン管理 |
 | [dot_claude/README.md](dot_claude/README.md) | Claude Code カスタムコマンド |
 
