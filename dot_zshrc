@@ -90,3 +90,7 @@ zstyle ':completion:*' menu select
 
 # Mise
 eval "$(~/.local/bin/mise activate zsh)"
+
+# Editor set to vim
+export EDITOR="vim"
+
