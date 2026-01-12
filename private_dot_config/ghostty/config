@@ -1,9 +1,13 @@
-theme = Catppuccin Frappe
+theme = catppuccin-frappe.conf
 font-family = "SFMono Square"
 font-style = Regular
 font-size = 13
 font-thicken = false
+background-opacity = 0.85
+background-blur-radius = 10
 macos-non-native-fullscreen = true
 quick-terminal-position = top
 quick-terminal-screen = main
 keybind = global:ctrl+option+space=toggle_quick_terminal
+auto-update-channel = tip
+
