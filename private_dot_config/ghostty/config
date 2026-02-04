@@ -10,4 +10,5 @@ quick-terminal-position = top
 quick-terminal-screen = main
 keybind = global:ctrl+option+space=toggle_quick_terminal
 auto-update-channel = tip
+macos-option-as-alt = true
 
