@@ -8,9 +8,8 @@
     pager = delta
 [credential]
     helper = osxkeychain
-[difftool "sourcetree"]
-    cmd = opendiff \"$LOCAL\" \"$REMOTE\"
-    path =
+[diff]
+    external  = difft
 [filter "lfs"]
     clean = git-lfs clean -- %f
     smudge = git-lfs smudge -- %f
@@ -42,3 +41,5 @@
     dark = true
 [merge]
     conflictstyle = zdiff3
+[coderabbit]
+    machineId = cli/e904bc10660047fb96fda573db9ccdaf
