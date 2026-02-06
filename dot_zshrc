@@ -80,7 +80,6 @@ export PATH="/Users/kk6/.codeium/windsurf/bin:$PATH"
 
 # Claude Code
 # *NOT* managed using volta
-alias claude="/Users/kk6/.claude/local/claude"
 export PATH="$HOME/.claude/local:$PATH"
 
 # zsh-completions
