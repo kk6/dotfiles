@@ -9,6 +9,6 @@ macos-non-native-fullscreen = true
 quick-terminal-position = top
 quick-terminal-screen = main
 keybind = global:ctrl+option+space=toggle_quick_terminal
-auto-update-channel = tip
+auto-update-channel = stable 
 macos-option-as-alt = true
 
