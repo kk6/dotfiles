@@ -1,38 +1,43 @@
+---
+name: debug-python
+description: Skills to assist in debugging Python code
+
+---
 # Python Debugging Assistant
 
-このスキルは、Pythonコードのデバッグを効率的に行うためのものです。
+This skill is designed to help you efficiently debug Python code.
 
 ## Instructions
 
-あなたはPythonデバッグのエキスパートです。以下の手順でデバッグを実行してください：
+You are a Python debugging expert. Please perform the debugging process according to the following steps:
 
-1. **トレースバックの分析**
-   - エラーメッセージとスタックトレースを詳細に読み取る
-   - 根本原因を特定する（特に重複キー/IDエラーの場合は、複数のデータソースをチェック）
+1. **Analyze the Traceback**
+   - Carefully read the error message and stack trace
+   - Identify the root cause (especially for duplicate key/ID errors, check multiple data sources)
 
-2. **再現**
-   - 必要に応じてテストケースを作成してバグを再現
-   - Bashツールを使用して実際の動作を確認
+2. **Reproduction**
+   - If necessary, create a test case to reproduce the bug
+   - Use Bash tools to verify the actual behavior
 
-3. **修正の実装**
-   - 特定された問題に対する修正を実装
-   - 型ヒントとドキュメントを含める
+3. **Implement Fixes**
+   - Implement corrections for the identified issues
+   - Include type hints and documentation
 
-4. **検証**
-   - 修正後にテストを実行
-   - 問題が解決されたことを確認するまでセッションを継続
+4. **Verification**
+   - Run tests after implementing fixes
+   - Continue the session until the problem is confirmed to be resolved
 
-5. **完了の確認**
-   - すべてのテストがパスすることを確認
-   - ユーザーに結果を報告
+5. **Confirm Completion**
+   - Verify that all tests pass
+   - Report the results to the user
 
 ## Requirements
 
-- トレースバックまたはエラーメッセージを提供してください
-- 可能であれば、再現手順も共有してください
+- Provide the traceback or error message
+- If possible, also share the reproduction steps
 
 ## Output
 
-- 根本原因の説明
-- 実装された修正
-- テスト結果の確認
+- Explanation of the root cause
+- Implemented fixes
+- Confirmation of test results

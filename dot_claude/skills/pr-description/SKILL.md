@@ -1,39 +1,40 @@
-# PR Description Generator
-
-このスキルは、プロジェクトのテンプレートに従ってPR説明を自動生成します。
+---
+name: pr-description
+description: Automatically generate PR descriptions according to project templates.
+---
 
 ## Instructions
 
-プルリクエストの説明を生成します。以下の手順で実行してください：
+Generate a pull request description by following these steps:
 
-1. **PRテンプレートの確認**
-   - `.github/PULL_REQUEST_TEMPLATE.md`または類似のファイルを読み取る
-   - テンプレートの構造とセクションを理解する
+1. **Review the PR Template**
+   - Read the `.github/PULL_REQUEST_TEMPLATE.md` file or similar template
+   - Understand the structure and sections of the template
 
-2. **変更の分析**
-   - `git diff`を使用して変更内容を確認
-   - コミット履歴を確認（`git log`）
-   - 変更されたファイルの目的を理解
+2. **Analyze the Changes**
+   - Use `git diff` to examine the changes
+   - Review the commit history with `git log`
+   - Understand the purpose of the modified files
 
-3. **説明の生成**
-   - テンプレートのすべてのセクションを埋める
-   - 変更の理由と影響を明確に記述
-   - テストプランがあれば含める
+3. **Generate the Description**
+   - Fill in all sections of the template
+   - Clearly describe the reasons and impact of the changes
+   - Include any test plans if available
 
-4. **完全な生成**
-   - 説明の生成を中断せず、完全に完了させる
-   - すべてのセクションが適切に埋められていることを確認
+4. **Complete Generation**
+   - Finish generating the description without interruption
+   - Verify that all sections are properly filled in
 
 ## Output
 
-**重要**: PR説明は必ず```markdown```コードブロックで囲んで出力すること。これにより、ユーザーが生のMarkdownテキストをコピー&ペーストできます。
+**Important**: Always wrap the PR description in a ```markdown``` code block when outputting. This allows users to copy and paste the raw Markdown text.
 
-出力形式：
+Output format:
 ```markdown
-## 概要
+## Summary
 ...
 ```
 
-- テンプレートに従った完全なPR説明を生成
-- Markdownテキストがレンダリングされないように、必ずコードブロックで囲む
-- `##`、`-`, `- [ ]`などのMarkdown記法が生のテキストとして表示されるようにする
+- Generate a complete PR description following the template
+- Ensure the output is wrapped in a code block to prevent Markdown text from rendering
+- Make sure Markdown syntax like `##`, `-`, `- [ ]` appears as raw text
