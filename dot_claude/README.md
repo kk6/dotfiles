@@ -1,167 +1,194 @@
-# Claude Code カスタムコマンド
+# Claude Code Configuration (`~/.claude/`)
 
-このディレクトリには、Claude Code での開発効率を向上させるためのカスタムコマンドが含まれています。
+このディレクトリには、すべてのプロジェクトに適用される Claude Code のグローバル設定が含まれます。
+chezmoi でソース管理され、`~/.local/share/chezmoi/dot_claude/` からデプロイされます。
 
-## 利用可能なコマンド
+## ディレクトリ構成
 
-### 1. CLAUDE.md圧縮ツール (`compress-claude-md.py`)
-
-CLAUDE.mdファイルのコンテキスト使用量を25-30%削減する圧縮ツールです。
-
-#### 機能
-- **自動バックアップ**: 元ファイルを`.backup`として保存
-- **段階的圧縮**: 4段階の圧縮処理を適用
-- **情報保全**: 重要な開発情報は保持
-- **復元機能**: 問題があれば元に戻すことが可能
-- **詳細レポート**: 圧縮効果の数値化
-
-#### 使用方法
-
-```bash
-# プロジェクトのCLAUDE.mdを圧縮
-python ~/.claude/commands/compress-claude-md.py
-
-# グローバルCLAUDE.mdを圧縮
-python ~/.claude/commands/compress-claude-md.py --global
-
-# 指定したファイルを圧縮
-python ~/.claude/commands/compress-claude-md.py /path/to/CLAUDE.md
-
-# バックアップから復元（プロジェクト）
-python ~/.claude/commands/compress-claude-md.py --restore
-
-# バックアップから復元（グローバル）
-python ~/.claude/commands/compress-claude-md.py --restore --global
+```
+~/.claude/
+├── CLAUDE.md                              # 全セッションに適用されるグローバル指示
+├── README.md                              # このファイル
+├── statusline.sh                          # コンテキスト使用量ステータスライン
+├── rules/                                 # 振る舞いルール集
+│   ├── git-workflow.rule.md
+│   ├── python-development.rule.md
+│   ├── python-exception-handling.rule.md
+│   └── session-management.rule.md
+├── skills/                                # カスタムスキル（現行の拡張機能）
+│   ├── debug-python/
+│   └── pr-description/
+└── commands/                              # カスタムスラッシュコマンド（非推奨）
+    ├── commit.md
+    ├── compress-claude-md.md
+    ├── compress-claude-md.py
+    ├── gemini-search.md
+    └── security-review.md
 ```
 
-#### 圧縮対象
-- **Build/Test/Lint Commands**: 重複するコマンドを統合形式に変換
-- **コード例**: 長いコード例を要点に絞って簡潔化
-- **重複セクション**: 重複的なセクションを統合
-- **参照セクション**: 詳細情報を外部ドキュメントへの参照に変換
+---
 
-#### 期待される効果
-- 文字数削減: 25-30%
-- コンテキスト使用量の削減
-- Claude Code の応答速度向上
-- 重要な開発情報の保持
+## CLAUDE.md
 
-#### 安全性
-- 実行前に自動バックアップを作成
-- 元ファイルは`.backup`拡張子で保存
-- 復元機能により簡単に元に戻すことが可能
-- 圧縮結果の詳細レポートを表示
+すべての Claude Code セッションで自動的に読み込まれるグローバル指示ファイルです。
 
-#### 使用例
+| 設定項目 | 内容 |
+|---|---|
+| 思考言語 | 英語のみ |
+| 応答言語 | 日本語 |
+| Python 例外処理 | `except: pass` 禁止、最小スコープのキャッチのみ許可 |
 
-```bash
-# 圧縮実行
-$ python ~/.claude/commands/compress-claude-md.py
-CLAUDE.md圧縮開始: /Users/kk6/project/CLAUDE.md
-==================================================
-✓ バックアップ作成: /Users/kk6/project/CLAUDE.md.backup
-圧縮処理中...
+詳細ルールへの参照を含む軽量な設定で、具体的なルールは `rules/` に分離しています。
 
-✓ 圧縮完了!
-元のサイズ: 33,587 文字 (812 行)
-圧縮後サイズ: 25,190 文字 (601 行)
-削減量: 8,397 文字 (25.0%)
-バックアップ: /Users/kk6/project/CLAUDE.md.backup
+---
 
-復元する場合: python compress-claude-md.py --restore
+## Rules
+
+Claude Code の振る舞いを制御するルールファイル群です。
+`CLAUDE.md` から参照され、セッション開始時に自動で読み込まれます。
+
+### `git-workflow.rule.md`
+
+Git の操作規約を定義します。
+
+- Conventional Commits v1.0.0 形式のコミットメッセージ
+- フィーチャーブランチの推奨
+- TDD（t-wada 方式）の採用
+- セッション中の中間ファイルは `.claude/tmp/` に配置
+
+### `python-development.rule.md`
+
+Python プロジェクトの標準的な構成とツール選定を定義します。
+
+- `uv` によるパッケージ管理、`pytest` によるテスト（AAA パターン）
+- `ruff`（lint/format）、`ty`（型検査）、`pre-commit` の使用
+- ログに f-string 禁止、Google スタイル docstring
+- 外部依存がある単独スクリプトは PEP 723 準拠
+
+### `python-exception-handling.rule.md`
+
+Python の例外処理に関する厳格なルールを定義します（違反は容認されません）。
+
+- **`except: pass` は完全禁止**（最も重要なルール）
+- `except Exception:` / `except BaseException:` の使用禁止 — 最も具体的な例外クラスを指定
+- `try-except` の乱用禁止 — システム境界（I/O・ネットワーク・ユーザー入力）にのみ使用
+- 想定外のエラーは伝播させる（クラッシュさせてトレースバックを見る）
+- やむを得ず広くキャッチする場合は必ずログに記録し再 raise する
+
+### `session-management.rule.md`
+
+セッション開始時の初期化と進捗保全の規約を定義します。
+
+- セッション開始時に `~/.zshrc` を読み込み、エイリアス設定を把握してからコマンドを提案
+- セッション途中で終了する場合は `WIP:` プレフィックスのコミットか TODO コメントで進捗を保存
+- PR 関連タスクは途中で止めず完結させる
+
+---
+
+## Skills
+
+`/skill-name` の形式で呼び出せるカスタム拡張機能です。
+`~/.claude/skills/` に配置したスキルはすべてのプロジェクトで使用できます。
+
+### `debug-python` — Python デバッグ支援
+
+Python コードのデバッグを体系的に進めるスキルです。
+
+- トレースバック解析 → 再現 → 修正 → テスト検証の一連フローを実行
+- 重複キー/ID エラーなど典型的バグパターンへの対処を含む
+
+```
+/debug-python   # エラーメッセージかトレースバックを貼り付けて実行
 ```
 
-### 2. セキュリティレビュー (`security-review.md`)
+### `pr-description` — PR 説明文の自動生成
 
-コードのセキュリティ脆弱性をレビューするためのコマンドです。
+`.github/PULL_REQUEST_TEMPLATE.md` を読み取り、`git diff` と `git log` をもとに PR 説明文を生成します。
 
-### 3. Gemini Web検索 (`gemini-search.md`)
+- テンプレートの全セクションを埋める
+- 出力はコピーしやすいよう Markdown コードブロックで返す
 
-Google Gemini CLIを使用してWeb検索を行うためのコマンドです。
-
-#### 機能
-- **優先使用**: Web検索が必要な場合、組み込みの`WebSearch`ツールではなく、このコマンドを使用
-- **Task Tool統合**: Task Toolを通じてgeminiコマンドを実行
-- **シンプルな構文**: `gemini --prompt`形式でWeb検索を実行
-
-#### 使用方法
-
-Claude Codeでは、Web検索が必要な場合に自動的にこのコマンドが使用されます。
-
-```bash
-gemini --prompt "WebSearch: <検索クエリ>"
+```
+/pr-description
 ```
 
-#### 注意事項
-- **必須使用**: Web検索時は必ずこのコマンドを使用すること
-- **Task Tool経由**: 直接実行ではなく、Task Toolを通じて実行すること
+### スキルの追加方法
 
-### 4. Git コミット (`commit.md`)
-
-Conventional Commits v1.0.0仕様に従ったGitコミットを作成するためのコマンドです。
-
-#### 機能
-- **事前分析**: git status、diff、logを並列実行して現在の状態を確認
-- **Conventional Commits準拠**: セマンティックバージョニングに対応した形式
-- **pre-commitフック対応**: フックによるファイル変更を自動処理
-- **Claude Codeフッター**: 自動的にClaude Code署名を追加
-
-#### 使用方法
-
-Claudeに `/commit` コマンドで使用可能です。
-
-#### コミットタイプ
-- `feat:` - 新機能 (MINOR バージョンアップ)
-- `fix:` - バグ修正 (PATCH バージョンアップ)
-- `docs:` - ドキュメント変更
-- `style:` - コードフォーマット (機能変更なし)
-- `refactor:` - リファクタリング
-- `test:` - テスト追加・修正
-- `chore:` - メンテナンス作業
-- `ci:` - CI設定変更
-- `perf:` - パフォーマンス改善
-- `build:` - ビルドシステム変更
-
-#### 破壊的変更の記載
-- タイプの後に `!` を追加: `feat(api)!: エンドポイント構造変更`
-- またはフッターに記載: `BREAKING CHANGE: 破壊的変更の説明`
-
-## コマンドの追加方法
-
-新しいカスタムコマンドを追加する場合：
-
-1. `~/.claude/commands/` ディレクトリに新しいファイルを作成
-2. スクリプトファイルの場合は実行権限を付与: `chmod +x filename`
-3. このREADMEに使用方法を追記
-
-## 注意事項
-
-- コマンドは自己責任で使用してください
-- 重要なファイルを操作する前は必ずバックアップを作成してください
-- 問題が発生した場合は、バックアップから復元してください
-
-## トラブルシューティング
-
-### CLAUDE.md圧縮ツールのトラブルシューティング
-
-**問題**: 圧縮後にClaude Codeが正常に動作しない
-**解決**: バックアップから復元してください
 ```bash
-python ~/.claude/commands/compress-claude-md.py --restore
+mkdir -p ~/.claude/skills/my-skill
+# ~/.claude/skills/my-skill/SKILL.md を作成
 ```
 
-**問題**: 特定のセクションが過度に圧縮されている
-**解決**: 圧縮スクリプトの該当関数を調整するか、手動で必要な情報を追加してください
+SKILL.md の最小構成:
 
-**問題**: バックアップファイルが見つからない
-**解決**: 圧縮実行前にバックアップが作成されているか確認してください。`.backup`拡張子のファイルを探してください。
+```markdown
+---
+name: my-skill
+description: What this skill does.
+---
 
-## ファイル作成ルール
+## Instructions
+...
 
-Claude Codeセッション中の中間ファイルは `./claude/tmp/` ディレクトリに配置してください。
-- セッション中の中間出力も `.claude/tmp/` に作成されます
-- 必要に応じて `.claude/tmp/` の外への移動を提案します
+$ARGUMENTS
+```
 
-## フィードバック
+---
 
-コマンドの改善提案やバグ報告は、プロジェクトのイシューとして報告してください。
+## statusline.sh
+
+Claude Code のステータスライン表示スクリプトです。
+セッションのコンテキスト使用状況をリアルタイムで表示します。
+
+**表示内容（2行）:**
+
+```
+🤖 モデル名 │ 📊 使用量/最大値 ████░░░░░░ XX% 🟢 Good │ ⬇入力 ⬆出力 │ 💡残量 │ ⏳~ETA │ 🔄圧縮回数
+🔥 バーンレート │ 🕐 Daily:XX  🗓 Weekly:XX  📊 Monthly:XX
+```
+
+| 表示項目 | 説明 |
+|---|---|
+| モデル名 | 使用中の Claude モデル |
+| 使用量バー | コンテキストウィンドウの消費率 |
+| バーンレート | トークン消費速度（/min） |
+| ETA | コンテキスト枯渇までの推定残り時間 |
+| 圧縮回数 | セッション内の自動圧縮発生回数 |
+| D/W/M 集計 | 日次・週次・月次のトークン使用量 |
+
+使用履歴は `~/.claude/.sl_usage_log.csv` に蓄積されます。
+
+---
+
+## Custom Commands（非推奨）
+
+> **⚠️ Deprecated — 今後整理予定**
+>
+> `~/.claude/commands/` のカスタムスラッシュコマンドは、Skills 機能が導入される以前の拡張手段です。
+> 現在は Skills が主要な拡張機能であり、`commands/` は段階的に整理・Skills へ移行する予定です。
+> 新しい機能は Skills として追加してください。
+
+### `compress-claude-md` — CLAUDE.md 圧縮
+
+CLAUDE.md のコンテキスト使用量を 25–30% 削減する Python スクリプトです。
+重複コマンドの統合・コード例の簡潔化・参照形式への変換などの圧縮処理を行います。
+
+```bash
+python ~/.claude/commands/compress-claude-md.py          # プロジェクトの CLAUDE.md を圧縮
+python ~/.claude/commands/compress-claude-md.py --global # グローバル CLAUDE.md を圧縮
+python ~/.claude/commands/compress-claude-md.py --restore # バックアップから復元
+```
+
+### `security-review` — セキュリティレビュー
+
+コードのセキュリティ脆弱性をレビューするコマンドです。
+
+### `gemini-search` — Gemini Web 検索
+
+Google Gemini CLI を使った Web 検索コマンドです。
+呼び出されると、組み込みの `WebSearch` ツールの代わりに `gemini --prompt` を Task Tool 経由で実行します。
+
+### `commit` — Git コミット
+
+Conventional Commits v1.0.0 仕様に従ったコミットを作成するコマンドです。
+pre-commit フックによるファイル変更への対処と Claude Code 署名フッターの付与を含みます。
