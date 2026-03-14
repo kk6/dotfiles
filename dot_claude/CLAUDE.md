@@ -3,6 +3,15 @@
 ## General Guidelines
 
 - **You must think exclusively in English**. However, you are required to **respond in Japanese**.
+- Disable installation of external libraries via pip for macOS's Python and homebrew's Python.
+  - if you want to use external tools like ruff, consider using them via uvx.
+
+## Coding Philosophy
+
+- **Code** describes **How** — implementation details belong in the code itself.
+- **Test code** describes **What** — what behavior is expected and being verified.
+- **Commit messages** describe **Why** — the reason the change was made.
+- **Code comments** describe **Why not** — why alternatives were rejected or avoided.
 
 ## Response Structure
 
