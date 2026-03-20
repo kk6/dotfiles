@@ -5,7 +5,7 @@
 - **tests** directory for unit tests
 - **docs** directory for documentation
 - Uses **uv** for Python package management
-- **pytest** for testing with AAA pattern (Arrange-Act-Assert)
+- **pytest** for testing (see `rules/pytest-best-practices.rule.md` for details)
 
 ## Code Style
 - PEP 8 compliant, type hints preferred
