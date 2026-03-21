@@ -27,6 +27,23 @@
           {
             "type": "command",
             "command": "jq -r '\"\\(.tool_input.command) - \\(.tool_input.description // \"No description\")\"' >> ~/.claude/bash-command-log.txt"
+          },
+          {
+            "type": "command",
+            "command": "~/.claude/hooks/block-pip-install.sh",
+            "statusMessage": "Checking for prohibited pip install..."
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "for file in $(echo \"$TOOL_RESULT\" | jq -r '.files_edited[]? // empty'); do if [[ \"$file\" == *.py ]]; then python -m py_compile \"$file\" 2>&1 || echo \"⚠️  Python syntax check failed for $file\"; fi; done",
+            "statusMessage": "Checking Python syntax..."
           }
         ]
       }
@@ -43,16 +60,21 @@
       }
     ]
   },
+  "statusLine": {
+    "type": "command",
+    "command": "~/.claude/statusline.py"
+  },
   "enabledPlugins": {
     "agent-sdk-dev@claude-plugins-official": true,
     "pr-review-toolkit@claude-plugins-official": true,
     "commit-commands@claude-plugins-official": true,
     "security-guidance@claude-plugins-official": true,
-    "code-review@claude-plugins-official": true
+    "code-review@claude-plugins-official": true,
+    "coding-assistant@claude-coding-assistant": true,
+    "claude-md-management@claude-plugins-official": true,
+    "skill-creator@claude-plugins-official": true,
+    "coderabbit@claude-plugins-official": true,
+    "sentry@claude-plugins-official": true
   },
-  "model": "opusplan",
-  "statusLine": {
-    "type": "command",
-    "command": "bash ~/.claude/statusline.sh"
-  }
+  "model": "opus"
 }
