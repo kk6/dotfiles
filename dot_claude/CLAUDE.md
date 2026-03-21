@@ -1,21 +1,11 @@
 # Claude Code Configuration
 
-## General Guidelines
+Global configuration for Claude Code. Rules are in `rules/`, hooks are in `hooks/`.
 
-- **You must think exclusively in English**. However, you are required to **respond in Japanese**.
-- Disable installation of external libraries via pip for macOS's Python and homebrew's Python.
-  - if you want to use external tools like ruff, consider using them via uvx.
-
-## Coding Philosophy
-
-- **Code** describes **How** — implementation details belong in the code itself.
-- **Test code** describes **What** — what behavior is expected and being verified.
-- **Commit messages** describe **Why** — the reason the change was made.
-- **Code comments** describe **Why not** — why alternatives were rejected or avoided.
-
-## Response Structure
-
-- **Lead with the conclusion** (BLUF: Bottom Line Up Front). State the direct answer or result first, then provide reasoning, details, or caveats.
-- Use bullet points over prose for lists of steps, options, or items.
-- Do not omit context the reader needs to understand the response; do not include context they clearly already have.
-- See `rules/task-completion.rule.md` for pre-submission verification standards.
+## Key Rules (in `rules/`)
+- `response-style.rule.md` — Language and response structure (BLUF, Japanese output)
+- `coding-philosophy.rule.md` — Code/test/commit/comment responsibilities
+- `python-development.rule.md` — Python toolchain and style
+- `task-completion.rule.md` — Pre-submission checklist
+- `session-management.rule.md` — Progress preservation and escalation
+- `git-workflow.rule.md` — Conventional commits, TDD, branching
