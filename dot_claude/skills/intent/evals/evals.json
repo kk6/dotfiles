@@ -1,0 +1,23 @@
+{
+  "skill_name": "intent",
+  "evals": [
+    {
+      "id": 0,
+      "prompt": "ユーザー認証にJWTを導入したい。セッション管理をステートレスにして、マイクロサービス間で認証情報を共有できるようにしたい",
+      "expected_output": "ADRが生成され、JWTという実装詳細がHow-leakとして検出・分離される。Context(Why)にはマイクロサービス間認証共有の動機、Intent(What)にはステートレスな認証の要件が書かれる",
+      "files": []
+    },
+    {
+      "id": 1,
+      "prompt": "PostgreSQLからDynamoDBに移行して、RedisでキャッシュしてGraphQL APIで公開したい。理由はスケーラビリティの改善",
+      "expected_output": "複数のHow-leak（PostgreSQL, DynamoDB, Redis, GraphQL）が検出・分離される。Whyはスケーラビリティ改善、Whatはデータアクセス層の要件として再構成される",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "以前ADR-0003でモノリスアーキテクチャを選択したが、チームが3チームに拡大したのでマイクロサービスアーキテクチャに変更したい。ADR-0003をsupersedeする形でADRを作成してほしい",
+      "expected_output": "新しいADRが作成され、supersedes ADR-0003と記載される。元のADR-0003のStatusが更新される指示が含まれる",
+      "files": []
+    }
+  ]
+}
