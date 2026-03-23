@@ -1,3 +1,8 @@
+---
+paths:
+  - "**/*.py"
+---
+
 # Python Exception Handling — Detailed Guidelines
 
 ## Core Principle

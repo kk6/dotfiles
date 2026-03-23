@@ -19,6 +19,7 @@
       "Bash(git reset:*)"
     ]
   },
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
@@ -54,6 +55,11 @@
         "hooks": [
           {
             "type": "command",
+            "command": "~/.claude/hooks/ruff-check.sh",
+            "statusMessage": "Running ruff check..."
+          },
+          {
+            "type": "command",
             "command": "afplay /System/Library/Sounds/Blow.aiff"
           }
         ]
@@ -75,6 +81,5 @@
     "skill-creator@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true,
     "sentry@claude-plugins-official": true
-  },
-  "model": "opus"
+  }
 }

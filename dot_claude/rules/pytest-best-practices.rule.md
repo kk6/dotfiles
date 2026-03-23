@@ -1,3 +1,10 @@
+---
+paths:
+  - "**/test_*.py"
+  - "**/tests/**/*.py"
+  - "**/conftest.py"
+---
+
 # pytest Best Practices
 
 ## Test Method Naming
