@@ -51,7 +51,7 @@ chezmoi status
 
 - `dot_claude/` is the source for `~/.claude/` (global settings). Do not add repo-specific rules there.
 - Never commit secrets or credentials (files needing protection must use the `private_` prefix).
-- `settings.json` and `statusline.sh` live directly in the repo root and are not deployed by chezmoi.
+- `settings.json` lives directly in the repo root and is not deployed by chezmoi.
 
 ## Commit Convention
 
