@@ -8,8 +8,8 @@
 - **エディタ設定**: `.vimrc`, `.editorconfig`, Neovim設定
 - **開発ツール**: Git設定, Starship設定, Flake8設定, mise設定
 - **ターミナル**: `.tmux.conf`, Ghostty設定
-- **AI アシスタント共通設定**: `.ai-shared/` (Claude Code・Codex 共有ルール・スキル)
-- **Claude Code設定**: `.claude/CLAUDE.md`, カスタムコマンド
+- **AI アシスタント共通設定**: `.ai-shared/core/` (ツール非依存ルール・スキルの正本)
+- **Claude Code設定**: `.claude/` (Claude 固有レイヤー + `.ai-shared/` 共有ルールへの symlink)
 - **Codex設定**: `.codex/config.toml`, `AGENTS.md`
 - **その他**: `.fzf.bash`, `.fzf.zsh`, `.stylelintrc`, npm設定など
 

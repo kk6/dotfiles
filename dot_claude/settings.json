@@ -20,6 +20,8 @@
     ]
   },
   "model": "opus",
+  "effortLevel": "high",
+  "showThinkingSummaries": true,
   "hooks": {
     "PreToolUse": [
       {
@@ -80,6 +82,15 @@
     "claude-md-management@claude-plugins-official": true,
     "skill-creator@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true,
-    "sentry@claude-plugins-official": true
+    "sentry@claude-plugins-official": true,
+    "codex@openai-codex": true
+  },
+  "extraKnownMarketplaces": {
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
+    }
   }
 }
