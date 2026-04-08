@@ -1,0 +1,55 @@
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+personality = "pragmatic"
+[projects."{{ .chezmoi.homeDir }}"]
+trust_level = "untrusted"
+
+[projects."{{ .chezmoi.homeDir }}/CascadeProjects/mcpax"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/works/medaca"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/works/flyingduck"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/.claude"]
+trust_level = "untrusted"
+
+[projects."{{ .chezmoi.homeDir }}/Sandbox/claude-cookbooks"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/works/partyduck"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/CascadeProjects/dotenvx-sample"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/mendan"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/CascadeProjects/pokopia"]
+trust_level = "trusted"
+
+[projects."{{ .chezmoi.homeDir }}/Downloads/hina_kikuchi"]
+trust_level = "trusted"
+
+[notice.model_migrations]
+"gpt-5.1-codex-max" = "gpt-5.2-codex"
+"gpt-5.2-codex" = "gpt-5.3-codex"
+"gpt-5.3-codex" = "gpt-5.4"
+
+[features]
+unified_exec = true
+shell_snapshot = true
+steer = true
+multi_agent = true
+suppress_unstable_features_warning = true
+apps = true
+personality = true
+
+[mcp_servers.tracery]
+url = "https://beproud.tracery.jp/mcp/"
+
+[plugins."github@openai-curated"]
+enabled = true

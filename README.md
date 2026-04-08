@@ -8,7 +8,9 @@
 - **エディタ設定**: `.vimrc`, `.editorconfig`, Neovim設定
 - **開発ツール**: Git設定, Starship設定, Flake8設定, mise設定
 - **ターミナル**: `.tmux.conf`, Ghostty設定
+- **AI アシスタント共通設定**: `.ai-shared/` (Claude Code・Codex 共有ルール・スキル)
 - **Claude Code設定**: `.claude/CLAUDE.md`, カスタムコマンド
+- **Codex設定**: `.codex/config.toml`, `AGENTS.md`
 - **その他**: `.fzf.bash`, `.fzf.zsh`, `.stylelintrc`, npm設定など
 
 ## セットアップ
@@ -91,7 +93,8 @@ $ echo "export PATH=\$PATH:/my/custom/path" >> ~/.zshrc.local
 | [docs/starship.md](docs/starship.md) | Starship プロンプト設定 |
 | [docs/fzf.md](docs/fzf.md) | fzf ファジーファインダー設定 |
 | [docs/mise.md](docs/mise.md) | mise によるバージョン管理 |
-| [dot_claude/README.md](dot_claude/README.md) | Claude Code カスタムコマンド |
+| [docs/ai-shared.md](docs/ai-shared.md) | AI 共有設定 (`~/.ai-shared/`) |
+| [dot_claude/README.md](dot_claude/README.md) | Claude Code 設定 |
 
 ## 注意事項
 
