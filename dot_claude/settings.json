@@ -92,5 +92,8 @@
         "repo": "openai/codex-plugin-cc"
       }
     }
+  },
+  "env": {
+    "CLAUDE_CODE_NO_FLICKER": "1"
   }
 }
