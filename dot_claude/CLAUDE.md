@@ -2,20 +2,15 @@
 
 ## Configuration Architecture
 
-`~/.claude/` is a two-layer system managed by chezmoi.
+`~/.claude/` is managed by chezmoi. Chezmoi source: `dot_claude/`.
 
-**Shared layer** — `~/.ai-shared/core/` holds tool-agnostic rules used by Claude, Codex, and future AI tools. Chezmoi source: `dot_ai-shared/core/`.
+**Rules** — `~/.claude/rules/` contains `<name>.rule.md` files. All rules are Claude-specific. Edit directly in `dot_claude/rules/`.
 
-**Claude-specific layer** — `~/.claude/rules/` has two kinds of files:
-- `symlink_<name>.md.tmpl` — chezmoi-managed symlinks pointing to `~/.ai-shared/core/<name>.md`. Edit the source in `dot_ai-shared/core/`, not the symlink.
-- `<name>.rule.md` — Claude-only rules. Edit directly in `dot_claude/rules/`.
+**Skills** — `~/.ai-shared/skills/` holds skills shared across AI tools (Claude, Codex). Chezmoi source: `dot_ai-shared/skills/`.
 
 **Adding a new rule:**
 
-| Type | chezmoi source location(s) |
-|---|---|
-| Shared (Claude + other tools) | `dot_ai-shared/core/<name>.md` + `dot_claude/rules/symlink_<name>.md.tmpl` |
-| Claude-only | `dot_claude/rules/<name>.rule.md` |
+Add `dot_claude/rules/<name>.rule.md` directly.
 
 ## Hooks (in `hooks/`)
 
