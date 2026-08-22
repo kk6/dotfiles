@@ -2,6 +2,10 @@
 idiomatic_version_file_enable_tools = ["python"]
 experimental = true
 
+[settings.node]
+compile = false
+
 [tools]
 bun = "latest"
 node = "20.14.0"
+pnpm = "9"
