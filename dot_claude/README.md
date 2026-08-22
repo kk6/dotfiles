@@ -14,24 +14,26 @@ chezmoi でソース管理され、`~/.local/share/chezmoi/dot_claude/` から�
 │   ├── block-pip-install.sh               #   PreToolUse: pip install をブロック
 │   ├── readme-sync-reminder.sh            #   PostToolUse: README.md 更新リマインド
 │   └── ruff-check.sh                      #   Stop: 変更 .py に ruff lint/format チェック
-├── rules/                                 # 振る舞いルール（全セッション自動読み込み）
-│   ├── response-style.rule.md             #   Claude 固有
-│   ├── task-and-session.rule.md           #   Claude 固有
-│   ├── session-file-organization.rule.md  #   Claude 固有
-│   ├── claude-md-sync.rule.md             #   Claude 固有
-│   ├── coding-philosophy.md        → ~/.ai-shared/core/  # 共有
-│   ├── git-workflow.md             → ~/.ai-shared/core/  # 共有
-│   ├── pytest-best-practices.md    → ~/.ai-shared/core/  # 共有
-│   ├── python-development.md       → ~/.ai-shared/core/  # 共有
-│   └── python-exception-handling.md → ~/.ai-shared/core/ # 共有
+├── rules/                                 # 振る舞いルール（自動読み込み。一部は paths: で条件付き）
+│   ├── response-style.rule.md             #   常時
+│   ├── task-and-session.rule.md           #   常時
+│   ├── session-file-organization.rule.md  #   常時
+│   ├── claude-md-sync.rule.md             #   paths: 一致時（rules/hooks/skills/settings/CLAUDE.md/README.md）
+│   ├── coding-philosophy.rule.md          #   常時
+│   ├── git-workflow.rule.md               #   常時
+│   ├── pytest-best-practices.rule.md      #   paths: 一致時（test_*.py, tests/**, conftest.py）
+│   ├── python-development.rule.md         #   paths: 一致時（*.py, pyproject.toml）
+│   └── python-exception-handling.rule.md  #   paths: 一致時（*.py）
+├── rule-library/                          # 自動読み込み対象外。必要なリポジトリの .claude/rules/ へ手動コピー
+│   └── django-development.rule.md         #   Django プロジェクトでのみ有効化
 ├── docs/                                  # タスク固有ドキュメント（必要時に読み込み）
 │   └── idd-workflow.md
 ├── skills/                                # カスタムスキル
-│   ├── 5w1h-review/                       #   Claude 固有
-│   ├── ai-review/                         #   Claude 固有
-│   ├── debug-python/                      #   Claude 固有
-│   ├── intent/              → ~/.ai-shared/skills/  # 共有
-│   └── pr-description/      → ~/.ai-shared/skills/  # 共有
+│   ├── 5w1h-review/
+│   ├── ai-review/
+│   ├── debug-python/
+│   ├── intent/
+│   └── pr-description/
 └── commands/                              # カスタムスラッシュコマンド（非推奨）
     ├── commit.md
     ├── compress-claude-md.md
@@ -41,44 +43,43 @@ chezmoi でソース管理され、`~/.local/share/chezmoi/dot_claude/` から�
     └── sentry-to-github.md
 ```
 
-> `→ ~/.ai-shared/` と表記されたファイルは symlink。正本は `~/.ai-shared/` にあり、
-> Codex (`~/.codex/`) とも共有されている。詳細は [docs/ai-shared.md](../docs/ai-shared.md) を参照。
-
 ---
 
 ## 設計方針
 
 [Writing a Good CLAUDE.md](https://www.humanlayer.dev/blog/writing-a-good-claude-md) の推奨に基づく構成です。
 
-- **`rules/`（自動読み込み）にはユニバーサルなルールのみ** — 全セッションで必要な振る舞い規約に限定
-- **タスク固有ガイドは `docs/` に配置** — pytest や例外処理のガイドは必要時にのみ読み込み、命令予算を節約
+- **`rules/`（自動読み込み）は「常時必要な振る舞い規約」または「`paths:` で確実にスコープできる技術ルール」に限定** — `paths:` はファイル種別（`*.py` など）で条件付けできるが、フレームワーク単位（Django か等）までは判定できない
+- **フレームワーク単位でしか判定できないルールは `rule-library/`** — 自動読み込みせず、該当リポジトリの `.claude/rules/` へ手動コピーして使う
+- **タスク固有ガイドは `docs/` に配置** — 必要時にのみ読み込み、命令予算を節約
 - **コードスタイルは linter に委譲** — PEP 8、行長、import 順などは ruff の Stop hook で機械的に強制。LLM の命令枠を消費しない
-- **CLAUDE.md は簡潔なハブ** — 設定アーキテクチャの概要と `docs/` へのポインタのみ。ツールチェーンは `python-development.md`（`~/.ai-shared/core/`）、ルール一覧は不要（自動読み込みのため）
+- **CLAUDE.md は簡潔なハブ** — 設定アーキテクチャの概要と `docs/` へのポインタのみ
 
 ---
 
 ## Rules
 
-`rules/` 配下のファイルは全セッションで自動読み込みされます。
+`rules/` 配下のファイルは自動読み込みされます。`paths:` frontmatter を持つファイルはマッチするファイルに触れたときだけ注入され、持たないファイルは常時注入されます。
 
-### Claude 固有
+| ファイル | 適用範囲 | 概要 |
+|---------|---------|------|
+| `response-style` | 常時 | 思考は英語、応答は日本語。BLUF（結論先行） |
+| `task-and-session` | 常時 | 要件確認、品質チェック、進捗報告、エスカレーション、セッション管理 |
+| `session-file-organization` | 常時 | セッション中の中間ファイルは `.claude/tmp/` に配置 |
+| `coding-philosophy` | 常時 | Code=How, Test=What, Commit=Why, Comment=Why not |
+| `git-workflow` | 常時 | Conventional Commits、フィーチャーブランチ、TDD |
+| `claude-md-sync` | `paths:` | rules/hooks/skills/settings/CLAUDE.md/README.md 変更時に同期を促す |
+| `pytest-best-practices` | `paths:` | テスト命名、AAA パターン、parametrize、fixtures |
+| `python-development` | `paths:` | プロジェクト構成（src/tests/docs）、ツールチェーン（uv, ruff, ty, pytest） |
+| `python-exception-handling` | `paths:` | 例外処理ガイドライン（silent failure 禁止） |
 
-| ファイル | 概要 |
-|---------|------|
-| `response-style` | 思考は英語、応答は日本語。BLUF（結論先行） |
-| `task-and-session` | 要件確認、品質チェック、進捗報告、エスカレーション、セッション管理 |
-| `session-file-organization` | セッション中の中間ファイルは `.claude/tmp/` に配置 |
-| `claude-md-sync` | rules/hooks 変更時に CLAUDE.md を同期 |
+## Rule Library
 
-### 共有（`~/.ai-shared/core/` → symlink）
+`rule-library/` 配下は自動読み込み**されません**。フレームワーク単位でしか判定できない（`*.py` のような glob では絞り込めない）ルールの置き場で、該当するリポジトリでのみ `.claude/rules/` へ手動コピーして使います。
 
-| ファイル | 概要 |
-|---------|------|
-| `coding-philosophy` | Code=How, Test=What, Commit=Why, Comment=Why not |
-| `git-workflow` | Conventional Commits、フィーチャーブランチ、TDD |
-| `pytest-best-practices` | テスト命名、AAA パターン、parametrize、fixtures |
-| `python-development` | プロジェクト構成（src/tests/docs）、ツールチェーン（uv, ruff, ty, pytest） |
-| `python-exception-handling` | 例外処理ガイドライン（silent failure 禁止） |
+| ファイル | 概要 | 使い方 |
+|---------|------|--------|
+| `django-development` | Django プロジェクトの開発規約 | `cp ~/.claude/rule-library/django-development.rule.md ./.claude/rules/` |
 
 ---
 
@@ -105,20 +106,15 @@ chezmoi でソース管理され、`~/.local/share/chezmoi/dot_claude/` から�
 
 `/skill-name` で呼び出せるカスタム拡張機能です。
 
-### Claude 固有
-
 | スキル | 概要 |
 |--------|------|
 | `debug-python` | トレースバック解析 → 再現 → 修正 → テスト検証 |
 | `ai-review` | 文章を読者視点でレビューし改善案を提示 |
 | `5w1h-review` | 文章の 5W1H 網羅性チェック |
-
-### 共有（`~/.ai-shared/skills/` → symlink）
-
-| スキル | 概要 |
-|--------|------|
 | `pr-description` | PR テンプレートに基づく説明文の自動生成 |
 | `intent` | IDD に基づく ADR（Architecture Decision Record）の生成 |
+
+> Codex (`~/.codex/skills/`) にも同名スキルがあるが、モデルごとにプロンプトをチューニングできるよう実体を分離している（symlink 共有はしない）。
 
 ---
 

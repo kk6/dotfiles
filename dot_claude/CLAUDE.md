@@ -4,13 +4,16 @@
 
 `~/.claude/` is managed by chezmoi. Chezmoi source: `dot_claude/`.
 
-**Rules** — `~/.claude/rules/` contains `<name>.rule.md` files. All rules are Claude-specific. Edit directly in `dot_claude/rules/`.
+**Rules** — `~/.claude/rules/` contains `<name>.rule.md` files, auto-loaded every session. All rules are Claude-specific. Edit directly in `dot_claude/rules/`.
 
-**Skills** — `~/.ai-shared/skills/` holds skills shared across AI tools (Claude, Codex). Chezmoi source: `dot_ai-shared/skills/`.
+**Rule Library** — `~/.claude/rule-library/` holds rules that only apply to a specific framework (e.g. Django), where a `paths:` glob can't reliably detect that framework. Not auto-loaded; copy the relevant file into a project's own `.claude/rules/` when needed.
+
+**Skills** — `~/.claude/skills/` holds Claude-specific skills. Not shared with Codex (`~/.codex/skills/`) — prompts are tuned per model rather than reused across tools.
 
 **Adding a new rule:**
 
-Add `dot_claude/rules/<name>.rule.md` directly.
+- Applies to every project, or scopable via `paths:` glob → add `dot_claude/rules/<name>.rule.md` directly.
+- Applies only to a specific framework/stack that `paths:` can't isolate → add `dot_claude/rule-library/<name>.rule.md` instead.
 
 ## Hooks (in `hooks/`)
 

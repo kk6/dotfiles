@@ -1,6 +1,7 @@
 ---
 paths:
   - "**/*.py"
+alwaysApply: false
 ---
 
 # Django Development Standards
