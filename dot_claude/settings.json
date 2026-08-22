@@ -1,4 +1,7 @@
 {
+  "env": {
+    "CLAUDE_CODE_NO_FLICKER": "1"
+  },
   "permissions": {
     "allow": [
       "List(*)",
@@ -19,9 +22,7 @@
       "Bash(git reset:*)"
     ]
   },
-  "model": "opus",
-  "effortLevel": "high",
-  "showThinkingSummaries": true,
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -83,7 +84,8 @@
     "skill-creator@claude-plugins-official": true,
     "coderabbit@claude-plugins-official": true,
     "sentry@claude-plugins-official": true,
-    "codex@openai-codex": true
+    "codex@openai-codex": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -91,9 +93,16 @@
         "source": "github",
         "repo": "openai/codex-plugin-cc"
       }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
   },
-  "env": {
-    "CLAUDE_CODE_NO_FLICKER": "1"
-  }
+  "effortLevel": "high",
+  "showThinkingSummaries": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true
 }
