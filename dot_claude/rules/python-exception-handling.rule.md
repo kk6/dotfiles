@@ -1,6 +1,7 @@
 ---
 paths:
   - "**/*.py"
+alwaysApply: false
 ---
 
 # Python Exception Handling — Detailed Guidelines

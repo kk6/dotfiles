@@ -2,6 +2,7 @@
 paths:
   - "**/*.py"
   - "**/pyproject.toml"
+alwaysApply: false
 ---
 
 # Python Development Standards

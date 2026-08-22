@@ -3,6 +3,7 @@ paths:
   - "**/test_*.py"
   - "**/tests/**/*.py"
   - "**/conftest.py"
+alwaysApply: false
 ---
 
 # pytest Best Practices
