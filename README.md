@@ -9,7 +9,7 @@
 - **開発ツール**: Git設定, Starship設定, Flake8設定, mise設定
 - **ターミナル**: `.tmux.conf`, Ghostty設定
 - **Claude Code設定**: `.claude/`（rules, rule-library, skills, hooks）
-- **Codex設定**: `.codex/config.toml`, `AGENTS.md`, skills（Claude とはプロンプトを共有せず個別管理）
+- **Codex設定**: `AGENTS.md`, skills（Claude とはプロンプトを共有せず個別管理）。`config.toml` は chezmoi 管理外（手動編集）
 - **その他**: `.fzf.bash`, `.fzf.zsh`, `.stylelintrc`, npm設定など
 
 ## セットアップ

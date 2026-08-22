@@ -1,0 +1,3 @@
+# ~/.codex/config.toml is managed manually, not via chezmoi.
+# Prevents accidental re-tracking with `chezmoi add ~/.codex/config.toml`.
+.codex/config.toml
