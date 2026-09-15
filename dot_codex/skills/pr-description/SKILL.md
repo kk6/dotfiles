@@ -1,40 +1,44 @@
 ---
 name: pr-description
-description: Automatically generate PR descriptions according to project templates.
+description: >-
+  PR本文の作成・書き直しを依頼されたとき、対象差分と検証結果を確認し、
+  プロジェクトのテンプレートに沿った説明を生成する。本文生成だけではPRの作成・更新は行わない。
 ---
 
-## Instructions
+# PR Description
 
-Generate a pull request description by following these steps:
+レビューする人が、問題・変更後の振る舞い・検証結果を理解できる本文を作る。
 
-1. **Review the PR Template**
-   - Read the `.github/PULL_REQUEST_TEMPLATE.md` file or similar template
-   - Understand the structure and sections of the template
+## 対象と根拠を確認する
 
-2. **Analyze the Changes**
-   - Use `git diff` to examine the changes
-   - Review the commit history with `git log`
-   - Understand the purpose of the modified files
+- 明示されたPR・ブランチ・比較範囲を使う。既存PRならbase/headと現在の本文を確認する。
+- ブランチのPR本文には、確認できたbaseとの分岐点からの差分（`git diff <base>...HEAD`）と対象コミット（`git log <base>..HEAD`）を使う。引数なしの `git diff` だけで判断しない。
+- 作業ツリー・ステージ済みの変更は、依頼の対象に含まれる場合だけ別途確認する。無関係なローカル変更をPRの説明に混ぜない。
+- baseはPR情報やリポジトリの設定・指示から確認し、`main` やupstreamを無条件に比較先としない。対象範囲を確定できなければ、その点を質問する。
+- 差分だけで目的が分からない場合は周辺コード・関連資料を読む。コミット履歴は補助として使い、本文は最終的な差分を説明する。
 
-3. **Generate the Description**
-   - Fill in all sections of the template
-   - Clearly describe the reasons and impact of the changes
-   - Include any test plans if available
+## テンプレートを選ぶ
 
-4. **Complete Generation**
-   - Finish generating the description without interruption
-   - Verify that all sections are properly filled in
+ユーザー指定とリポジトリの指示を優先する。
+`.github/`、ルート、`docs/` にある `PULL_REQUEST_TEMPLATE.md`（小文字名も含む）や
+`PULL_REQUEST_TEMPLATE/` 内の候補を確認し、今回に該当するものだけを使う。
+複数あって適用先が判断できなければ質問する。テンプレートがなければ「概要」「確認」の短い構成でよい。
 
-## Output
+## 本文を書く
 
-**Important**: Always wrap the PR description in a ```markdown``` code block when outputting. This allows users to copy and paste the raw Markdown text.
+- 問題と変更後の振る舞いを先に書く。必要なら具体的な変更前後の例を添える。
+- テンプレートの見出し・必須項目を保ち、変更規模に見合う長さにする。ファイル一覧や作業日誌を並べない。
+- テストは実際に確認した実行結果と、未実施・予定を区別する。根拠なく「テスト済み」にせず、チェックボックスも確認できた項目だけチェックする。
+- 不明なIssue番号・背景・測定値を作らない。必須欄の不明事項は未確認、該当しない項目は理由を添えて該当なしとする。
+- 既存本文の更新では、手書きの背景・関連リンク・確認結果を差分と照合して残す。古いスコープの説明は最終的な変更内容に合わせて直す。
+- 言語はユーザーの指定、プロジェクト規約、会話の言語の順に合わせる。
 
-Output format:
-```markdown
-## Summary
-...
-```
+## 出力
 
-- Generate a complete PR description following the template
-- Ensure the output is wrapped in a code block to prevent Markdown text from rendering
-- Make sure Markdown syntax like `##`, `-`, `- [ ]` appears as raw text
+チャットではコピー可能な `markdown` コードブロックに本文を入れる。
+本文にコードフェンスがある場合は、それより長いフェンスで囲む。
+ファイル保存・PR更新を依頼された場合、保存する本文に外側のフェンスを含めない。
+
+本文の生成依頼だけならチャットに出力して完了する。
+PR作成・更新も依頼されている場合はその範囲で実行し、`gh` で複数行を渡す際は本文ファイルと `--body-file` を使う。
+スキルを改修する際の評価ケースは [evals/evals.json](evals/evals.json) を参照する。

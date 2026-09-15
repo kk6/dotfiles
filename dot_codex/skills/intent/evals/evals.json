@@ -3,20 +3,38 @@
   "evals": [
     {
       "id": 0,
-      "prompt": "ユーザー認証にJWTを導入したい。セッション管理をステートレスにして、マイクロサービス間で認証情報を共有できるようにしたい",
-      "expected_output": "ADRが生成され、JWTという実装詳細がHow-leakとして検出・分離される。Context(Why)にはマイクロサービス間認証共有の動機、Intent(What)にはステートレスな認証の要件が書かれる",
+      "prompt": "JWTを採用することが決まりました。サービス間で認証情報を共有し、各サービスで検証できるようにするためです。この決定をacceptedのADRとして保存してください。",
+      "expected_output": "JWTの採用判断と動機を保持し、acceptedで保存する。JWTを単にHowとして削除しない。保存承認を再要求しない。",
       "files": []
     },
     {
       "id": 1,
-      "prompt": "PostgreSQLからDynamoDBに移行して、RedisでキャッシュしてGraphQL APIで公開したい。理由はスケーラビリティの改善",
-      "expected_output": "複数のHow-leak（PostgreSQL, DynamoDB, Redis, GraphQL）が検出・分離される。Whyはスケーラビリティ改善、Whatはデータアクセス層の要件として再構成される",
+      "prompt": "Redisで高速化したいのでADRのドラフトを見せて。まだ採用技術も性能目標も決めていません。",
+      "expected_output": "技術選定は未確定として扱い、数値目標を創作しない。チャットのドラフトに留め、ファイルを書かない。",
       "files": []
     },
     {
       "id": 2,
-      "prompt": "以前ADR-0003でモノリスアーキテクチャを選択したが、チームが3チームに拡大したのでマイクロサービスアーキテクチャに変更したい。ADR-0003をsupersedeする形でADRを作成してほしい",
-      "expected_output": "新しいADRが作成され、supersedes ADR-0003と記載される。元のADR-0003のStatusが更新される指示が含まれる",
+      "prompt": "acceptedのADR-0003を置き換える提案をADRに保存してください。まだ採用は決まっていません。",
+      "expected_output": "既存ADR-0003を参照できる環境で実行する。新ADRはproposedで対象へのリンクと採用時に置き換える旨を記載し、旧ADRは一切変更しない。",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "置き換え提案が採用されました。新ADRをacceptedにし、旧ADR-0003も更新してください。",
+      "expected_output": "旧ADRと置き換え提案を事前に配置する。新ADRをacceptedにし、両方向の置き換えリンクを記載する。旧ADRはStatusのみ変更する。",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "認証バグへの対応で、期限切れトークンを拒否する方針をADRとして保存して。",
+      "expected_output": "バグ修正という理由で明示依頼を拒否しない。既存規約に沿って保存し、未提供の動機や却下理由を創作しない。",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "intentスキルの指示をレビューしてください。",
+      "expected_output": "スキルをレビューし、ADRのヒアリングや新規作成を開始しない。",
       "files": []
     }
   ]
