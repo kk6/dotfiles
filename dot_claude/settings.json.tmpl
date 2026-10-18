@@ -22,7 +22,6 @@
       "Bash(git reset:*)"
     ]
   },
-  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -85,7 +84,12 @@
     "coderabbit@claude-plugins-official": true,
     "sentry@claude-plugins-official": true,
     "codex@openai-codex": true,
-    "ponytail@ponytail": true
+    "ponytail@ponytail": true,
+    "typesafe@typesafe-ai": true,
+    "yomiyasu@yomiyasu": true,
+    "pstack@cursor-plugins": true,
+    "i-have-adhd@i-have-adhd": true,
+    "mattpocock-skills@claude-plugins-official": true
   },
   "extraKnownMarketplaces": {
     "openai-codex": {
@@ -99,10 +103,41 @@
         "source": "github",
         "repo": "DietrichGebert/ponytail"
       }
+    },
+    "typesafe-ai": {
+      "source": {
+        "source": "github",
+        "repo": "typesafe-ai/skills"
+      }
+    },
+    "yomiyasu": {
+      "source": {
+        "source": "github",
+        "repo": "nanaism/yomiyasu"
+      }
+    },
+    "pstack-claude": {
+      "source": {
+        "source": "github",
+        "repo": "michael-denyer/pstack-claude"
+      }
+    },
+    "cursor-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "cursor/plugins"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
+      }
     }
   },
   "effortLevel": "high",
   "showThinkingSummaries": true,
   "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true
+  "agentPushNotifEnabled": true{{ $autoMode := joinPath .chezmoi.homeDir ".config/chezmoi/claude-automode.json" }}{{ if stat $autoMode }},
+  "autoMode": {{ include $autoMode | trim }}{{ end }}
 }
