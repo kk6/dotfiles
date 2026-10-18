@@ -24,6 +24,7 @@
 ## Task-Specific Docs (in `docs/`, read on demand)
 
 - `idd-workflow.md` — Intent-Driven Development and ADR workflow
+- `personal-dev-guide.md` — personal project workflow (local only, not managed by chezmoi)
 
 ## Development
 

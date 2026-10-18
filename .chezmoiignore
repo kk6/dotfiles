@@ -1,3 +1,6 @@
 # ~/.codex/config.toml is managed manually, not via chezmoi.
 # Prevents accidental re-tracking with `chezmoi add ~/.codex/config.toml`.
 .codex/config.toml
+
+# Personal guide kept local only; not for the public repo.
+.claude/docs/personal-dev-guide.md
