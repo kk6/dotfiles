@@ -33,7 +33,8 @@ chezmoi でソース管理され、`~/.local/share/chezmoi/dot_claude/` から�
 │   ├── ai-review/
 │   ├── debug-python/
 │   ├── intent/
-│   └── pr-description/
+│   ├── pr-description/
+│   └── session-recap/
 └── commands/                              # カスタムスラッシュコマンド（非推奨）
     ├── commit.md
     ├── compress-claude-md.md
@@ -113,6 +114,7 @@ chezmoi でソース管理され、`~/.local/share/chezmoi/dot_claude/` から�
 | `5w1h-review` | 文章の 5W1H 網羅性チェック |
 | `pr-description` | PR テンプレートに基づく説明文の自動生成 |
 | `intent` | IDD に基づく ADR（Architecture Decision Record）の生成 |
+| `session-recap` | セッションの記録から開発日誌・要約・Issue のコメントを作る |
 
 > Codex (`~/.codex/skills/`) にも同名スキルがあるが、モデルごとにプロンプトをチューニングできるよう実体を分離している（symlink 共有はしない）。
 
